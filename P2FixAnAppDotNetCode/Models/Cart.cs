@@ -11,7 +11,7 @@ namespace P2FixAnAppDotNetCode.Models
     {
 
 
-        private List<CartLine> _cartLines = new List<CartLine>();
+        private List<CartLine> _cartLines = new List<CartLine>();// add _cartLines variable to persists changes
         /// <summary>
         /// Read-only property for display only
         /// </summary>
@@ -47,7 +47,7 @@ namespace P2FixAnAppDotNetCode.Models
             }
         }
 
-    
+
 
         /// <summary>
         /// Removes a product form the cart
@@ -61,7 +61,9 @@ namespace P2FixAnAppDotNetCode.Models
         public double GetTotalValue()
         {
             // TODO implement the method
-            return 0.0;
+            double totalValue = 0d;
+            _cartLines.ForEach(l => totalValue += l.Product.Price * l.Quantity);
+            return totalValue;
         }
 
         /// <summary>
