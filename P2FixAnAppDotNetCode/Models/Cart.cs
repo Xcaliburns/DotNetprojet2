@@ -32,7 +32,7 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>//
         public void AddItem(Product product, int quantity)
         {
-            // TODO implement the method
+            // TODO implement the method "DONE"
             CartLine existingLine = _cartLines.FirstOrDefault(cl => cl.Product.Id == product.Id);
 
             if (existingLine != null)
@@ -60,7 +60,7 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public double GetTotalValue()
         {
-            // TODO implement the method
+            // TODO implement the method "DONE" 
             double totalValue = 0d;
             _cartLines.ForEach(l => totalValue += l.Product.Price * l.Quantity);
             return totalValue;
@@ -71,7 +71,7 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public double GetAverageValue()
         {
-            // TODO implement the method
+            // TODO implement the method  "DONE"
             double totalValue = 0;
             double averageValue = 0d;
             int itemsCount = 0;
