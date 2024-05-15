@@ -100,8 +100,8 @@ namespace P2FixAnAppDotNetCode.Models
         {
             // TODO implement the method "DONE"
 
-            CartLine wantedLine = _cartLines.Find(p => p.Product.Id == productId);
-            Product product = wantedLine?.Product;
+            CartLine wantedLine = _cartLines.Find(l => l.Product.Id == productId);
+            Product product = wantedLine?.Product; 
             return product;
         }
 
