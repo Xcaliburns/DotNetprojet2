@@ -1,4 +1,6 @@
 ﻿using P2FixAnAppDotNetCode.Models.Repositories;
+using System.Collections.Generic;// add directive use list
+
 
 namespace P2FixAnAppDotNetCode.Models.Services
 {
@@ -19,7 +21,7 @@ namespace P2FixAnAppDotNetCode.Models.Services
         /// <summary>
         /// Get all product from the inventory
         /// </summary>
-        public Product[] GetAllProducts()
+        public List<Product> GetAllProducts()
         {
             // TODO change the return type from array to List<T> and propagate the change
             // throughout the application
@@ -31,7 +33,7 @@ namespace P2FixAnAppDotNetCode.Models.Services
         /// </summary>
         public Product GetProductById(int id)
         {
-            // TODO implement the method
+            // TODO implement the method "DONE"
             return _productRepository.GetProductById(id);
         }
 
