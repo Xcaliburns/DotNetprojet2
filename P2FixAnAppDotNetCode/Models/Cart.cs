@@ -75,22 +75,22 @@ namespace P2FixAnAppDotNetCode.Models
             double totalValue = 0;
             double averageValue = 0d;
             int itemsCount = 0;
-             
+
 
             if (_cartLines.Count > 0)
             {
-                _cartLines.ForEach(l => 
+                _cartLines.ForEach(l =>
                 {
                     totalValue += l.Product.Price * l.Quantity;
                     itemsCount += l.Quantity;
                 });
-               return averageValue = totalValue / (double)itemsCount;
+                return averageValue = totalValue / (double)itemsCount;
             }
             else
             {
                 return 0.0;
             }
-           
+
         }
 
         /// <summary>
@@ -98,8 +98,11 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public Product FindProductInCartLines(int productId)
         {
-            // TODO implement the method
-            return null;
+            // TODO implement the method "DONE"
+
+            CartLine wantedLine = _cartLines.Find(l => l.Product.Id == productId);
+            Product product = wantedLine?.Product; 
+            return product;
         }
 
         /// <summary>
