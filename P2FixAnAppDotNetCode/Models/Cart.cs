@@ -1,4 +1,6 @@
-﻿using System;
+﻿using P2FixAnAppDotNetCode.Models.Repositories;
+using P2FixAnAppDotNetCode.Models.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +11,8 @@ namespace P2FixAnAppDotNetCode.Models
     /// </summary>
     public class Cart : ICart
     {
-
+        private readonly IProductRepository _productRepository;
+        private readonly IProductService _productService;
 
         private List<CartLine> _cartLines = new List<CartLine>();// add _cartLines variable to persists changes
         /// <summary>
@@ -37,14 +40,20 @@ namespace P2FixAnAppDotNetCode.Models
 
             if (existingLine != null)
             {
+                
                 // if product exists increment quantity
                 existingLine.Quantity += quantity;
+                existingLine.Product.Id = product.Id;
+                
             }
             else
             {
                 // If product dont'exists add to cart
                 _cartLines.Add(new CartLine { Product = product, Quantity = quantity });
+                
+               
             }
+            
         }
 
 
