@@ -148,4 +148,7 @@
     <value>Total</value>
     <comment>Total</comment>
   </data>
+  <data name="CartIsEmpty" xml:space="preserve">
+    <value>El carrito está vacío</value>
+  </data>
 </root>
