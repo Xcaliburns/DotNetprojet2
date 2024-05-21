@@ -48,6 +48,17 @@
     </tfoot>
 </table>
 <div class="text-center">
-    <a class="btn btn-primary" asp-action="Index" asp-controller="Product">@Localizer["ContinueShopping"]</a>
-    <a class="btn btn-primary" asp-action="Index" asp-controller="Order">@Localizer["Checkout"]</a>
+    @if (Model.Lines.Count() > 0)  /* condition added to forbid acces to checkout page if cart is empty  */
+    {
+        
+        <a class="btn btn-primary" asp-action="Index" asp-controller="Product">@Localizer["ContinueShopping"]</a>
+        <a class="btn btn-primary" asp-action="Index" asp-controller="Order">@Localizer["Checkout"]</a>
+        
+    }
+    else
+    {
+        
+        <a class="btn btn-primary" asp-action="Index" asp-controller="Product">@Localizer["ContinueShopping"]</a>
+        <a class="btn btn-primary" asp-action="Index" asp-controller="Product">@Localizer["Cart Is Empty"]</a>
+    }
 </div>

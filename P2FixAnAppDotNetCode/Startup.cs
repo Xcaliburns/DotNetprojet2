@@ -29,7 +29,7 @@ namespace P2FixAnAppDotNetCode
             services.AddSingleton<ICart, Cart>();
             services.AddSingleton<ILanguageService, LanguageService>();
             services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddSingleton<IProductRepository, ProductRepository>(); // changed AddTransient for AddSingleton
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddMemoryCache();
@@ -41,7 +41,7 @@ namespace P2FixAnAppDotNetCode
                 .AddDataAnnotationsLocalization();
 
             services.Configure<RequestLocalizationOptions>(opts =>
-            { 
+            {
                 var supportedCultures = new List<CultureInfo>
                 {
                     new CultureInfo("en-GB"),
@@ -49,6 +49,8 @@ namespace P2FixAnAppDotNetCode
                     new CultureInfo("en"),
                     new CultureInfo("fr-FR"),
                     new CultureInfo("fr"),
+                    new CultureInfo("es"), /// ajout de l'espagnol
+                    new CultureInfo("es-ES"),
                 };
 
                 opts.DefaultRequestCulture = new RequestCulture("en");

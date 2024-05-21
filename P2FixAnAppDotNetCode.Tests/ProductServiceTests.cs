@@ -22,8 +22,8 @@ namespace P2FixAnAppDotNetCode.Tests
 
             var products = productService.GetAllProducts();
 
-            //Assert.IsType<List<Product>>(products);
-            Assert.IsType<Product[]>(products);
+            Assert.IsType<List<Product>> (products);//test modification Product is now a List
+            //Assert.IsType<Product[]>(products); //removed by error at last commit
 
         }
 

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using P2FixAnAppDotNetCode.Models.Repositories;
+using P2FixAnAppDotNetCode.Models.Services;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace P2FixAnAppDotNetCode.Models
@@ -8,6 +11,10 @@ namespace P2FixAnAppDotNetCode.Models
     /// </summary>
     public class Cart : ICart
     {
+        private readonly IProductRepository _productRepository;
+        private readonly IProductService _productService;
+
+        private List<CartLine> _cartLines = new List<CartLine>();// add _cartLines variable to persists changes
         /// <summary>
         /// Read-only property for display only
         /// </summary>
@@ -19,7 +26,8 @@ namespace P2FixAnAppDotNetCode.Models
         /// <returns></returns>
         private List<CartLine> GetCartLineList()
         {
-            return new List<CartLine>();
+            new List<CartLine>();
+            return _cartLines;
         }
 
         /// <summary>
@@ -27,8 +35,28 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>//
         public void AddItem(Product product, int quantity)
         {
-            // TODO implement the method
+            // TODO implement the method "DONE"
+            CartLine existingLine = _cartLines.FirstOrDefault(cl => cl.Product.Id == product.Id);
+
+            if (existingLine != null)
+            {
+                
+                // if product exists increment quantity
+                existingLine.Quantity += quantity;
+                existingLine.Product.Id = product.Id;
+                
+            }
+            else
+            {
+                // If product dont'exists add to cart
+                _cartLines.Add(new CartLine { Product = product, Quantity = quantity });
+                
+               
+            }
+            
         }
+
+
 
         /// <summary>
         /// Removes a product form the cart
@@ -41,8 +69,10 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public double GetTotalValue()
         {
-            // TODO implement the method
-            return 0.0;
+            // TODO implement the method "DONE" 
+            double totalValue = 0d;
+            _cartLines.ForEach(l => totalValue += l.Product.Price * l.Quantity);
+            return totalValue;
         }
 
         /// <summary>
@@ -50,8 +80,26 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public double GetAverageValue()
         {
-            // TODO implement the method
-            return 0.0;
+            // TODO implement the method  "DONE"
+            double totalValue = 0;
+            double averageValue = 0d;
+            int itemsCount = 0;
+
+
+            if (_cartLines.Count > 0)
+            {
+                _cartLines.ForEach(l =>
+                {
+                    totalValue += l.Product.Price * l.Quantity;
+                    itemsCount += l.Quantity;
+                });
+                return averageValue = totalValue / (double)itemsCount;
+            }
+            else
+            {
+                return 0.0;
+            }
+
         }
 
         /// <summary>
@@ -59,8 +107,11 @@ namespace P2FixAnAppDotNetCode.Models
         /// </summary>
         public Product FindProductInCartLines(int productId)
         {
-            // TODO implement the method
-            return null;
+            // TODO implement the method "DONE"
+
+            CartLine wantedLine = _cartLines.Find(l => l.Product.Id == productId);
+            Product product = wantedLine?.Product; 
+            return product;
         }
 
         /// <summary>

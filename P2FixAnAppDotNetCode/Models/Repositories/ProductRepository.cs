@@ -16,6 +16,7 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
             GenerateProductData();
         }
 
+
         /// <summary>
         /// Generate the default list of products
         /// </summary>
@@ -31,11 +32,12 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
 
         /// <summary>
         /// Get all products from the inventory
+        /// modiifed array to list
         /// </summary>
-        public Product[] GetAllProducts()
+        public List<Product> GetAllProducts()
         {
             List<Product> list = _products.Where(p => p.Stock > 0).OrderBy(p => p.Name).ToList();
-            return list.ToArray();
+            return list;
         }
 
         /// <summary>
@@ -49,5 +51,14 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
             if (product.Stock == 0)
                 _products.Remove(product);
         }
+        ///ajout de la methode pour recuperer un produit depuis son id
+        /// <summary>
+        /// Get a product from the inventory by its id
+        /// </summary>
+        public Product GetProductById(int productId)
+        {
+            return _products.FirstOrDefault(p => p.Id == productId);
+        }
+
     }
 }
