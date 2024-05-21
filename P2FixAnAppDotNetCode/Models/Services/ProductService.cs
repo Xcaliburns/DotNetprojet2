@@ -1,5 +1,6 @@
 ﻿using P2FixAnAppDotNetCode.Models.Repositories;
-using System.Collections.Generic;// add directive use list
+using System.Collections.Generic;
+using System.Linq;// add directive use list
 
 
 namespace P2FixAnAppDotNetCode.Models.Services
@@ -11,11 +12,15 @@ namespace P2FixAnAppDotNetCode.Models.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
+       
 
-        public ProductService(IProductRepository productRepository, IOrderRepository orderRepository)
+        public ProductService(IProductRepository productRepository, IOrderRepository orderRepository
+         
+            )
         {
             _productRepository = productRepository;
             _orderRepository = orderRepository;
+            
         }
 
         /// <summary>
@@ -44,6 +49,15 @@ namespace P2FixAnAppDotNetCode.Models.Services
         {
             // TODO implement the method
             // update product inventory by using _productRepository.UpdateProductStocks() method.
+
+            if (cart != null)
+            {
+                cart.Lines.ToList().ForEach(l => _productRepository.UpdateProductStocks(l.Product.Id, l.Quantity));
+               
+            }
+
+
+
         }
     }
 }

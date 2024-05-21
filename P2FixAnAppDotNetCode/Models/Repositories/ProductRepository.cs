@@ -16,6 +16,7 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
             GenerateProductData();
         }
 
+
         /// <summary>
         /// Generate the default list of products
         /// </summary>
