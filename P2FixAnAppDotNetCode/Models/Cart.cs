@@ -26,8 +26,7 @@ namespace P2FixAnAppDotNetCode.Models
         /// <returns></returns>
         private List<CartLine> GetCartLineList()
         {
-            new List<CartLine>();
-            return _cartLines;
+           return _cartLines;
         }
 
         /// <summary>
@@ -40,20 +39,22 @@ namespace P2FixAnAppDotNetCode.Models
 
             if (existingLine != null)
             {
-                
-                // if product exists increment quantity
-                existingLine.Quantity += quantity;
-                existingLine.Product.Id = product.Id;
+                if (product.Stock >= existingLine.Quantity + quantity)//stock can't be negative or null
+                {
+                    // if product exists increment quantity
+                    existingLine.Quantity += quantity;
+                }
                 
             }
             else
             {
                 // If product dont'exists add to cart
-                _cartLines.Add(new CartLine { Product = product, Quantity = quantity });
-                
-               
+                if (product.Stock >= quantity)//stock can't be negative or null
+                {
+                    _cartLines.Add(new CartLine { Product = product, Quantity = quantity });
+                }
             }
-            
+
         }
 
 
@@ -70,9 +71,7 @@ namespace P2FixAnAppDotNetCode.Models
         public double GetTotalValue()
         {
             // TODO implement the method "DONE" 
-            double totalValue = 0d;
-            _cartLines.ForEach(l => totalValue += l.Product.Price * l.Quantity);
-            return totalValue;
+            return _cartLines.Sum(l =>  l.Product.Price * l.Quantity);             
         }
 
         /// <summary>
@@ -81,25 +80,17 @@ namespace P2FixAnAppDotNetCode.Models
         public double GetAverageValue()
         {
             // TODO implement the method  "DONE"
-            double totalValue = 0;
-            double averageValue = 0d;
-            int itemsCount = 0;
+            double totalValue = GetTotalValue();            
+            int itemsCount = _cartLines.Sum(l => l.Quantity);
 
-
-            if (_cartLines.Count > 0)
-            {
-                _cartLines.ForEach(l =>
-                {
-                    totalValue += l.Product.Price * l.Quantity;
-                    itemsCount += l.Quantity;
-                });
-                return averageValue = totalValue / (double)itemsCount;
+            if (_cartLines.Count > 0)// to be sure to not divide by zero
+            {                   
+                    return totalValue/itemsCount;                 
             }
             else
             {
                 return 0.0;
             }
-
         }
 
         /// <summary>
@@ -110,7 +101,7 @@ namespace P2FixAnAppDotNetCode.Models
             // TODO implement the method "DONE"
 
             CartLine wantedLine = _cartLines.Find(l => l.Product.Id == productId);
-            Product product = wantedLine?.Product; 
+            Product product = wantedLine?.Product;
             return product;
         }
 
