@@ -9,7 +9,7 @@ namespace P2FixAnAppDotNetCode.Models.Repositories
         /// </summary>
         /// <returns></returns>
        List<Product> GetAllProducts();
-        Product GetProductById(int id);// ajout pour la methode
+       Product GetProductById(int id);// ajout pour la methode
 
         void UpdateProductStocks(int productId, int quantityToRemove);
     }
