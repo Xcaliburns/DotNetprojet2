@@ -13,6 +13,6 @@ namespace P2FixAnAppDotNetCode.Models
 
         double GetAverageValue();
 
-        CartLine GetCartLineByIndex(int index);
+
     }
 }
